@@ -1,3 +1,3 @@
-module github.com/TTRSQ/csvlogger
+module github.com/Nguyen-Hoa/csvlogger
 
 go 1.15
