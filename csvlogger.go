@@ -17,6 +17,7 @@ type Logger interface {
 type csvLogger struct {
 	basePath  string
 	fileNamme string
+	date      string
 }
 
 // NewLogger .. Create logger.
@@ -31,13 +32,13 @@ func NewLogger(basePath, fileNamme string) (Logger, error) {
 	return &csvLogger{
 		basePath:  basePath,
 		fileNamme: fileNamme,
+		date:      time.Now().Format("2006_01_02-15:04:05"),
 	}, nil
 }
 
 // Add .. Add row or Create file and write header if not found.
 func (c *csvLogger) Add(data interface{}) {
-	now := time.Now()
-	fullPath := fmt.Sprintf("%s/%s.%s.csv", c.basePath, c.fileNamme, now.Format("20060102"))
+	fullPath := fmt.Sprintf("%s/%s.%s.csv", c.basePath, c.fileNamme, c.date)
 
 	head, body := structToList(data)
 
@@ -63,9 +64,12 @@ func (c *csvLogger) Add(data interface{}) {
 }
 
 func structToList(data interface{}) ([]string, []string) {
-	elem := reflect.ValueOf(data).Elem()
+	log.Print("structToList: enter", reflect.ValueOf(data))
+
+	elem := reflect.ValueOf(data)
 	size := elem.NumField()
 
+	log.Print(elem, size)
 	head := []string{}
 	body := []string{}
 
