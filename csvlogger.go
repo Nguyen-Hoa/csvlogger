@@ -26,7 +26,7 @@ func NewLogger(basePath, fileNamme string) (Logger, error) {
 		basePath = "./"
 	}
 	if fileNamme == "" {
-		return nil, errors.New("fileNamme is required.")
+		return nil, errors.New("fileNamme is required")
 	}
 
 	return &csvLogger{
@@ -64,12 +64,9 @@ func (c *csvLogger) Add(data interface{}) {
 }
 
 func structToList(data interface{}) ([]string, []string) {
-	log.Print("structToList: enter", reflect.ValueOf(data))
-
 	elem := reflect.ValueOf(data)
 	size := elem.NumField()
 
-	log.Print(elem, size)
 	head := []string{}
 	body := []string{}
 
