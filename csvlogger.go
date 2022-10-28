@@ -38,7 +38,7 @@ func NewLogger(basePath, fileNamme string) (Logger, error) {
 
 // Add .. Add row or Create file and write header if not found.
 func (c *csvLogger) Add(data interface{}) {
-	fullPath := fmt.Sprintf("%s/%s.%s.csv", c.basePath, c.fileNamme, c.date)
+	fullPath := fmt.Sprintf("%s/%s.csv", c.basePath, c.fileNamme)
 
 	head, body := structToList(data)
 
